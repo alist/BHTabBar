@@ -79,7 +79,7 @@ enum { kTagTabBase = 100 };
 
 - (void)loadView {
   CGRect frame = [UIScreen mainScreen].applicationFrame;
-  UIView *view = [[UIView alloc] initWithFrame:frame];
+  UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, self.style.tabsViewHeight)];
   self.view = view;
 
   self.view.backgroundColor = [UIColor clearColor];
