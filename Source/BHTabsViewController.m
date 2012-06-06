@@ -7,10 +7,10 @@ enum { kTagTabBase = 100 };
 
 @interface BHTabsViewController ()
 
-@property (nonatomic, strong) NSArray *tabNames;
+@property (nonatomic, retain) NSArray *tabNames;
 @property (nonatomic, assign, readwrite) UIView *contentView;
-@property (nonatomic, strong) BHTabsView *tabsContainerView;
-@property (nonatomic, strong) BHTabsFooterView *footerView;
+@property (nonatomic, retain) BHTabsView *tabsContainerView;
+@property (nonatomic, retain) BHTabsFooterView *footerView;
 
 @end
 
@@ -32,6 +32,14 @@ enum { kTagTabBase = 100 };
 }
 
 
+- (void)dealloc {
+  self.style = nil;
+  self.tabNames = nil;
+  self.tabsContainerView = nil;
+  self.footerView = nil;
+
+  [super dealloc];
+}
 
 - (void)_reconfigureTabs {
   NSUInteger thisIndex = 0;
@@ -81,6 +89,7 @@ enum { kTagTabBase = 100 };
   CGRect frame = [UIScreen mainScreen].applicationFrame;
   UIView *view = [[UIView alloc] initWithFrame:frame];
   self.view = view;
+  [view release];
 
   self.view.backgroundColor = [UIColor clearColor];
   self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth;
@@ -88,7 +97,7 @@ enum { kTagTabBase = 100 };
   // The view that contains the tab views is located across the top.
 
   CGRect tabsViewFrame = CGRectMake(0, 0, frame.size.width, self.style.tabsViewHeight);
-  self.tabsContainerView = [[BHTabsView alloc] initWithFrame:tabsViewFrame];
+  self.tabsContainerView = [[[BHTabsView alloc] initWithFrame:tabsViewFrame] autorelease];
   self.tabsContainerView.backgroundColor = [UIColor clearColor];
   self.tabsContainerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
   self.tabsContainerView.style = self.style;
@@ -131,7 +140,7 @@ enum { kTagTabBase = 100 };
                                   tabsViewFrame.size.width,
                                   self.style.tabBarHeight + self.style.shadowRadius);
 
-  self.footerView = [[BHTabsFooterView alloc] initWithFrame:footerFrame];
+  self.footerView = [[[BHTabsFooterView alloc] initWithFrame:footerFrame] autorelease];
   self.footerView.backgroundColor = [UIColor clearColor];
   self.footerView.style = self.style;
   self.footerView.autoresizingMask = UIViewAutoresizingFlexibleWidth;

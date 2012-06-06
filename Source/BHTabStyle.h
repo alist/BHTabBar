@@ -29,17 +29,17 @@
 
 @property (nonatomic, assign) CGFloat shadowRadius;
 
-@property (nonatomic, strong) UIColor *selectedTabColor;
-@property (nonatomic, strong) UIColor *selectedTitleTextColor;
-@property (nonatomic, strong) UIFont  *selectedTitleFont;
+@property (nonatomic, retain) UIColor *selectedTabColor;
+@property (nonatomic, retain) UIColor *selectedTitleTextColor;
+@property (nonatomic, retain) UIFont  *selectedTitleFont;
 @property (nonatomic, assign) CGSize   selectedTitleShadowOffset;
-@property (nonatomic, strong) UIColor *selectedTitleShadowColor;
+@property (nonatomic, retain) UIColor *selectedTitleShadowColor;
 
-@property (nonatomic, strong) UIColor *unselectedTabColor;
-@property (nonatomic, strong) UIColor *unselectedTitleTextColor;
-@property (nonatomic, strong) UIFont  *unselectedTitleFont;
+@property (nonatomic, retain) UIColor *unselectedTabColor;
+@property (nonatomic, retain) UIColor *unselectedTitleTextColor;
+@property (nonatomic, retain) UIFont  *unselectedTitleFont;
 @property (nonatomic, assign) CGSize   unselectedTitleShadowOffset;
-@property (nonatomic, strong) UIColor *unselectedTitleShadowColor;
+@property (nonatomic, retain) UIColor *unselectedTitleShadowColor;
 
 + (BHTabStyle *)defaultStyle;
 

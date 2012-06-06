@@ -6,6 +6,6 @@
 
 @interface BHTabsFooterView : UIView
 
-@property (nonatomic, strong) BHTabStyle *style;
+@property (nonatomic, retain) BHTabStyle *style;
 
 @end

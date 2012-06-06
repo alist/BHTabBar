@@ -7,8 +7,8 @@
   BHTabStyle *style;
 }
 
-@property (nonatomic, strong) NSArray *tabViews;
-@property (nonatomic, strong) BHTabStyle *style;
+@property (nonatomic, retain) NSArray *tabViews;
+@property (nonatomic, retain) BHTabStyle *style;
 
 
 @end
