@@ -18,17 +18,17 @@
 
 @interface BHTabsViewController : UIViewController <BHTabViewDelegate> {
   NSArray *tabNames;
-  UIView *contentView;
+  UIView *__weak contentView;
   BHTabsView *tabsContainerView;
   BHTabsFooterView *footerView;
   BHTabStyle *tabStyle;
   NSUInteger currentTabIndex;
-  id <BHTabsViewControllerDelegate> delegate;
+  id <BHTabsViewControllerDelegate> __unsafe_unretained delegate;
 }
 
-@property (nonatomic, assign) id <BHTabsViewControllerDelegate> delegate;
-@property (nonatomic, assign, readonly) UIView *contentView;
-@property (nonatomic, retain) BHTabStyle *style;
+@property (nonatomic, unsafe_unretained) id <BHTabsViewControllerDelegate> delegate;
+@property (nonatomic, weak, readonly) UIView *contentView;
+@property (nonatomic, strong) BHTabStyle *style;
 
 -(id)initWithTabNames:(NSArray*)tabNames style:(BHTabStyle *)style;
 

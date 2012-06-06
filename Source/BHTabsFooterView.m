@@ -31,9 +31,5 @@
   CGContextRestoreGState(context);
 }
 
-- (void)dealloc {
-  [style release];
-  [super dealloc];
-}
 
 @end

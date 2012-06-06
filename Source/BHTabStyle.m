@@ -48,7 +48,7 @@
 }
 
 + (BHTabStyle *)defaultStyle {
-  return [[[BHTabStyle alloc] init] autorelease];
+  return [[BHTabStyle alloc] init];
 }
 
 @end

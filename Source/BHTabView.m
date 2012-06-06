@@ -21,7 +21,7 @@ static inline CGFloat radians(CGFloat degrees) {
 
 @interface BHTabView ()
 
-@property (nonatomic, retain, readwrite) UILabel *titleLabel;
+@property (nonatomic, strong, readwrite) UILabel *titleLabel;
 
 - (CGFloat)_sectionWidth;
 - (CGSize)_gridSize;
@@ -43,7 +43,7 @@ static inline CGFloat radians(CGFloat degrees) {
     self.style = [BHTabStyle defaultStyle];
 
     CGRect labelFrame = [self _tabRect];
-    self.titleLabel = [[[UILabel alloc] initWithFrame:labelFrame] autorelease];
+    self.titleLabel = [[UILabel alloc] initWithFrame:labelFrame];
     self.titleLabel.text = title;
     self.titleLabel.textAlignment = UITextAlignmentCenter;
     self.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
@@ -54,9 +54,9 @@ static inline CGFloat radians(CGFloat degrees) {
     self.titleLabel.shadowOffset = self.style.unselectedTitleShadowOffset;
     [self addSubview:self.titleLabel];
 
-    [self addGestureRecognizer:[[[UITapGestureRecognizer alloc]
+    [self addGestureRecognizer:[[UITapGestureRecognizer alloc]
                                  initWithTarget:self
-                                 action:@selector(_onTap:)] autorelease]];
+                                 action:@selector(_onTap:)]];
   }
 
   return self;
@@ -149,9 +149,9 @@ static inline CGFloat radians(CGFloat degrees) {
 
   CGColorRef startColor = [UIColor whiteColor].CGColor;
   CGColorRef endColor   = tabColor;
-  NSArray    *colors    = [NSArray arrayWithObjects:(id)startColor, (id)endColor, nil];
+  NSArray    *colors    = [NSArray arrayWithObjects:(__bridge id)startColor, (__bridge id)endColor, nil];
 
-  CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (CFArrayRef)colors, locations);
+  CGGradientRef gradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)colors, locations);
 
   CGRect  tabRect    = [self _tabRect];
   CGPoint startPoint = CGPointMake(CGRectGetMidX(tabRect), tabRect.origin.y);
@@ -186,11 +186,5 @@ static inline CGFloat radians(CGFloat degrees) {
   [self setNeedsDisplay];
 }
 
-- (void)dealloc {
-  self.titleLabel = nil;
-  self.style = nil;
-
-  [super dealloc];
-}
 
 @end

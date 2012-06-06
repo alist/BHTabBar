@@ -29,11 +29,5 @@
   }
 }
 
-- (void)dealloc {
-  self.tabViews = nil;
-  self.style = nil;
-
-  [super dealloc];
-}
 
 @end
