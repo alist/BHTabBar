@@ -10,10 +10,9 @@
 @synthesize vc3 = _vc3;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  NSArray *vcs = [NSArray arrayWithObjects:self.vc1, self.vc2, nil];
   
   viewController = [[BHTabsViewController alloc] 
-                    initWithViewControllers:vcs
+                    initWithTabNames:[NSArray arrayWithObjects:@"Tab 1sss",@"Tabxxx", nil]
                     style:[BHTabStyle defaultStyle]];
 
   UIImageView *iv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"bg.jpg"]];
