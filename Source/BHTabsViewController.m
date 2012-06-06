@@ -7,7 +7,7 @@ enum { kTagTabBase = 100 };
 
 @interface BHTabsViewController ()
 
-@property (nonatomic, retain) NSArray *viewControllers;
+@property (nonatomic, retain) NSArray *tabNames;
 @property (nonatomic, assign, readwrite) UIView *contentView;
 @property (nonatomic, retain) BHTabsView *tabsContainerView;
 @property (nonatomic, retain) BHTabsFooterView *footerView;
@@ -16,25 +16,25 @@ enum { kTagTabBase = 100 };
 
 @implementation BHTabsViewController
 
-@synthesize delegate, style, viewControllers, contentView,
+@synthesize delegate, style, tabNames, contentView,
   tabsContainerView, footerView;
 
-- (id)initWithViewControllers:(NSArray *)theViewControllers
-                        style:(BHTabStyle *)theStyle {
-
-  self = [super initWithNibName:nil bundle:nil];
-
-  if (self) {
-    self.viewControllers = theViewControllers;
-    self.style = theStyle;
-  }
-
-  return self;
+-(id)initWithTabNames:(NSArray*)theTabNames style:(BHTabStyle *)theStyle{
+	self = [super initWithNibName:nil bundle:nil];
+	
+	if (self) {
+		self.tabNames = theTabNames;
+		self.style = theStyle;
+	}
+	
+	return self;
+	
 }
+
 
 - (void)dealloc {
   self.style = nil;
-  self.viewControllers = nil;
+  self.tabNames = nil;
   self.tabsContainerView = nil;
   self.footerView = nil;
 
@@ -67,34 +67,22 @@ enum { kTagTabBase = 100 };
   if (!tabView) return;
 
   currentTabIndex = tabView.tag - kTagTabBase;
-
-  UIViewController *viewController = [self.viewControllers objectAtIndex:currentTabIndex];
-
-  [self.contentView removeFromSuperview];
-  self.contentView = viewController.view;
   
-  self.contentView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-  self.contentView.frame = CGRectMake(0, self.tabsContainerView.bounds.size.height, self.view.bounds.size.width, self.view.bounds.size.height);
-  
-  [self.view addSubview:self.contentView];
-
   [self _reconfigureTabs];
 }
 
 - (void)didTapTabView:(BHTabView *)tappedView {
   NSUInteger index = tappedView.tag - kTagTabBase;
-  NSAssert(index < [self.viewControllers count], @"invalid tapped view");
+  NSAssert(index < [self.tabNames count], @"invalid tapped view");
 
-  UIViewController *viewController = [self.viewControllers objectAtIndex:index];
-
-  if ([self.delegate respondsToSelector:@selector(shouldMakeTabCurrentAtIndex:controller:tabBarController:)])
-    if (![self.delegate shouldMakeTabCurrentAtIndex:index controller:viewController tabBarController:self])
+  if ([self.delegate respondsToSelector:@selector(shouldMakeTabCurrentAtIndex:tabBarController:)])
+    if (![self.delegate shouldMakeTabCurrentAtIndex:index tabBarController:self])
       return;
-
+	
   [self _makeTabViewCurrent:tappedView];
-
-  if ([self.delegate respondsToSelector:@selector(didMakeTabCurrentAtIndex:controller:tabBarController:)])
-    [self.delegate didMakeTabCurrentAtIndex:index controller:viewController tabBarController:self];
+	
+  if ([self.delegate respondsToSelector:@selector(didMakeTabCurrentAtIndex:tabBarController:)])
+    [self.delegate didMakeTabCurrentAtIndex:index tabBarController:self];
 }
 
 - (void)loadView {
@@ -118,13 +106,13 @@ enum { kTagTabBase = 100 };
   // Tabs are resized such that all fit in the view's width.
   // We position the tab views from left to right, with some overlapping after the first one.
 
-  CGFloat tabWidth = frame.size.width / [self.viewControllers count];
+  CGFloat tabWidth = frame.size.width / [self.tabNames count];
   NSUInteger overlap = tabWidth * self.style.overlapAsPercentageOfTabWidth;
-  tabWidth = (frame.size.width + overlap * ([self.viewControllers count] - 1)) / [self.viewControllers count];
+  tabWidth = (frame.size.width + overlap * ([self.tabNames count] - 1)) / [self.tabNames count];
 
-  NSMutableArray *allTabViews = [NSMutableArray arrayWithCapacity:[self.viewControllers count]];
+  NSMutableArray *allTabViews = [NSMutableArray arrayWithCapacity:[self.tabNames count]];
 
-  for (UIViewController *viewController in self.viewControllers) {
+  for (NSString *tabName in self.tabNames) {
     NSUInteger tabIndex = [allTabViews count];
 
     // The selected tab's bottom-most edge should overlap the top shadow of the tab bar under it.
@@ -137,7 +125,7 @@ enum { kTagTabBase = 100 };
     if (tabIndex > 0)
       tabFrame.origin.x -= tabIndex * overlap;
 
-    BHTabView *tabView = [[BHTabView alloc] initWithFrame:tabFrame title:viewController.title];
+    BHTabView *tabView = [[BHTabView alloc] initWithFrame:tabFrame title:tabName];
     tabView.tag = kTagTabBase + tabIndex;
     tabView.titleLabel.font = self.style.unselectedTitleFont;
     tabView.delegate = self;

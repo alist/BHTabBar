@@ -9,18 +9,15 @@
 @protocol BHTabsViewControllerDelegate <NSObject>
 @optional
 
-- (BOOL)shouldMakeTabCurrentAtIndex:(NSUInteger)index
-                         controller:(UIViewController *)viewController
-                   tabBarController:(BHTabsViewController *)tabBarController;
+- (BOOL)shouldMakeTabCurrentAtIndex:(NSUInteger)index tabBarController:(BHTabsViewController *)tabBarController;
 
 - (void)didMakeTabCurrentAtIndex:(NSUInteger)index
-                      controller:(UIViewController *)viewController
                 tabBarController:(BHTabsViewController *)tabBarController;
 
 @end
 
 @interface BHTabsViewController : UIViewController <BHTabViewDelegate> {
-  NSArray *viewControllers;
+  NSArray *tabNames;
   UIView *contentView;
   BHTabsView *tabsContainerView;
   BHTabsFooterView *footerView;
@@ -33,7 +30,6 @@
 @property (nonatomic, assign, readonly) UIView *contentView;
 @property (nonatomic, retain) BHTabStyle *style;
 
-- (id)initWithViewControllers:(NSArray *)viewControllers
-                        style:(BHTabStyle *)style;
+-(id)initWithTabNames:(NSArray*)tabNames style:(BHTabStyle *)style;
 
 @end
