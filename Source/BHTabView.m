@@ -78,7 +78,7 @@ static inline CGFloat radians(CGFloat degrees) {
 
 - (void)_onTap:(UIGestureRecognizer *)gesture {
   UITapGestureRecognizer *tapGesture = (UITapGestureRecognizer *) gesture;
-  if (tapGesture.state == UIGestureRecognizerStateEnded) {
+  if (tapGesture.state == UIGestureRecognizerStateRecognized) {
     if ([self.delegate respondsToSelector:@selector(didTapTabView:)]) {
       [self.delegate didTapTabView:self];
     }
