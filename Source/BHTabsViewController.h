@@ -30,8 +30,11 @@
 @property (nonatomic, weak, readonly) UIView *contentView;
 @property (nonatomic, strong) BHTabStyle *style;
 
--(NSUInteger) currentTabIndex;
+@property (nonatomic, assign) NSUInteger currentTabIndex;
 
 -(id)initWithTabNames:(NSArray*)tabNames style:(BHTabStyle *)style;
+
+
+- (void)_reconfigureTabs;
 
 @end

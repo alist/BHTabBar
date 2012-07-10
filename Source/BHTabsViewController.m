@@ -35,6 +35,12 @@ enum { kTagTabBase = 100 };
 	return currentTabIndex;
 }
 
+-(void) setCurrentTabIndex:(NSUInteger)tabIndex{
+	if (tabIndex != currentTabIndex){
+		currentTabIndex = tabIndex;
+		[self _reconfigureTabs];
+	}
+}
 
 - (void)_reconfigureTabs {
   NSUInteger thisIndex = 0;

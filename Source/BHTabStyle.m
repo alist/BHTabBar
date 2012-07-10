@@ -7,6 +7,8 @@
 @synthesize tabBarHeight;
 @synthesize overlapAsPercentageOfTabWidth;
 @synthesize shadowRadius;
+@synthesize squareTabs;
+
 @synthesize selectedTabColor;
 @synthesize selectedTitleTextColor;
 @synthesize selectedTitleFont;
@@ -25,6 +27,7 @@
     self.tabBarHeight = 5;
     self.overlapAsPercentageOfTabWidth = 0.20;
     self.shadowRadius = 3;
+	self.squareTabs = FALSE;
 
     self.selectedTabColor = [UIColor colorWithWhite:220/255.0 alpha:1];
     self.selectedTitleFont = [UIFont boldSystemFontOfSize:14];

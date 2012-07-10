@@ -118,6 +118,7 @@ static inline CGFloat radians(CGFloat degrees) {
 
   CGPathMoveToPoint(path, NULL, tabLeft, tabBottom);
 
+	
   CGPathAddCurveToPoint(path, NULL,
                         bottomControlPointDX, tabBottom - bottomControlPointDY,
                         sectionWidth - topControlPointDX, tabTop,

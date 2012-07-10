@@ -7,11 +7,12 @@
 @synthesize style;
 
 - (void)layoutSubviews {
-  NSUInteger N = [self.tabViews count];
+  float N = [self.tabViews count];
   
   CGFloat W = self.frame.size.width / N;
-  NSUInteger overlap = W * self.style.overlapAsPercentageOfTabWidth;
-  W = (self.frame.size.width + overlap * (N-1)) / N;
+  NSInteger overlap = W * self.style.overlapAsPercentageOfTabWidth;
+  CGFloat width = self.frame.size.width;
+  W = (width + (float)overlap * (N-1)) / N;
   
   NSUInteger tabIndex = 0;
   

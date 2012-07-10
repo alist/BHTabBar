@@ -40,6 +40,7 @@
 @property (nonatomic, strong) UIFont  *unselectedTitleFont;
 @property (nonatomic, assign) CGSize   unselectedTitleShadowOffset;
 @property (nonatomic, strong) UIColor *unselectedTitleShadowColor;
+@property (nonatomic, assign) BOOL squareTabs;
 
 + (BHTabStyle *)defaultStyle;
 
